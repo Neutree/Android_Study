@@ -3,6 +3,7 @@
 
     <string name="RegisterHint">注册成功!</string>
     <string name="Register">注册</string>
+    <string name="quit">退出</string>
     <string name="Hint_user">请输入用户名</string>
     <string name="Hint_password">请输入密码</string>
     <string name="Hint_password2">请确认密码</string>
@@ -10,9 +11,14 @@
     <string name="UserName">用户名</string>
     <string name="Password">密码</string>
     <string name="NotComplete">请填写完整哦！</string>
+    <string name="SignUp_Error_Input">"输入错误"</string>
     <string name="PasswordDiffrent">两次输入的密码不相同哦！</string>
     <string name="title_activity_register_success">注册成功</string>
     <string name="title_activity_sign_up_success">signUpSuccess</string>
+
+    <string name="YES">是</string>
+    <string name="NO">否</string>
+    <string name="Exit">"退出"</string>
 
     <string name="hello_world">Hello world!</string>
 </resources>
