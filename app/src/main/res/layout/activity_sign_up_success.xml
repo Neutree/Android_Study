@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/RegisterHint"
+        android:text="@string/SignUpHint"
         android:id="@+id/textView3"
         android:textSize="30dp"
         android:textColor="#ffffff"

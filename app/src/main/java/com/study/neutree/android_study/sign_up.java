@@ -9,10 +9,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class sign_up extends AppCompatActivity {
@@ -22,16 +27,24 @@ public class sign_up extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        System.out.println("OnCreate");
-        Log.d("debug_info", "onCreate ");
+        Button button_ToSignIn=(Button)findViewById(R.id.SignUp_To_SignIn);
+        Button button_signUp=(Button)findViewById(R.id.SignUP_Button);
+        final EditText userName=(EditText)findViewById(R.id.SignUp_userName);
+        final EditText password=(EditText)findViewById(R.id.SignUp_password);
+        final EditText password2=(EditText)findViewById(R.id.SignUp_password2);
+        Spinner spinner1= (Spinner) findViewById(R.id.SignUp_spinner);
+        List<String> list_Proresson = new ArrayList<>();
+        list_Proresson.add(getResources().getString(R.string.Profession_Edu));
+        list_Proresson.add(getResources().getString(R.string.Profession_IT));
+        list_Proresson.add(getResources().getString(R.string.Profession_Art));
+        list_Proresson.add(getResources().getString(R.string.Profession_Business));
+        list_Proresson.add(getResources().getString(R.string.Profession_Edu));
+        ArrayAdapter<String> adapter =new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,list_Proresson);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinner1.setAdapter(adapter);
+        spinner1.setOnItemSelectedListener(new spinnerSelected());
 
-        Button button_login=(Button)findViewById(R.id.button_login);
-        Button button_quit=(Button)findViewById(R.id.button_quit);
-        final EditText userName=(EditText)findViewById(R.id.userName);
-        final EditText password=(EditText)findViewById(R.id.password);
-        final EditText password2=(EditText)findViewById(R.id.password2);
-
-        button_login.setOnClickListener(new View.OnClickListener() {
+        button_ToSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String str_userName = userName.getText().toString().trim();
@@ -59,28 +72,30 @@ public class sign_up extends AppCompatActivity {
             }
         }
         );
-        button_quit.setOnClickListener(new quit());//添加点击退出按钮事件
-    }
-    class quit implements View.OnClickListener
-    {
-        @Override
-        public void onClick(View v) {
-            AlertDialog.Builder builder  = new  AlertDialog.Builder(sign_up.this);
-            builder.setTitle(getResources().getString(R.string.Exit)) ;
-            builder.setMessage(getResources().getString(R.string.Exit) + "?") ;
-            builder.setPositiveButton(getResources().getString(R.string.YES), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    System.exit(0);
-                }
-            });
-            builder.setNegativeButton(getResources().getString(R.string.NO), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
 
-                }
-            });
-            builder.show();
+        //////////////////////////////
+        ///sign up button onclick callback
+        /////////////////////////////
+        button_ToSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(sign_up.this, sign_In.class);
+                startActivity(intent);
+            }
+        });//添加点击退出按钮事件
+
+
+    }
+
+    class spinnerSelected implements AdapterView.OnItemSelectedListener{
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
 
         }
     }
