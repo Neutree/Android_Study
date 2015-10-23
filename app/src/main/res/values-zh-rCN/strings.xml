@@ -22,21 +22,20 @@
     <string name="title_activity_sign_up_success">signUpSuccess</string>
     <string name="SignInForgetPassword">忘记密码</string>
     <string name="SignInToSignUp">注册</string>
-    <string name="Hint_email">Input Email</string>
-    <string name="profession">Profession</string>
-    <string name="Profession_Edu">Education</string>
+    <string name="Hint_email">输入邮箱</string>
+    <string name="profession">职业</string>
+    <string name="Profession_Edu">教育</string>
     <string name="Profession_IT">IT</string>
-    <string name="Profession_Business">Business</string>
-    <string name="Profession_Art">Art</string>
+    <string name="Profession_Business">商务</string>
+    <string name="Profession_Art">艺术</string>
 
     <string name="YES">是</string>
     <string name="NO">否</string>
     <string name="Exit">"退出"</string>
     <string name="Return">"返回"</string>
 
-    <string name="search">"Search"</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_sign__in">sign_In</string>
+    <string name="search">搜索</string>
+    <string name="title_activity_sign__in">登录</string>
 
 
 </resources>

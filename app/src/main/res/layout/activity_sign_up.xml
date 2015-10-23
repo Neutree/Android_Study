@@ -84,7 +84,8 @@
         android:id="@+id/SignUP_Button"
         android:background="@drawable/button_bg"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="15dp"/>
+        android:textColor="#ffffff"
+        android:layout_margin="10dp"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -92,7 +93,8 @@
         android:text="@string/SignIn"
         android:id="@+id/SignUp_To_SignIn"
         android:background="@drawable/button_bg"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
+        android:textColor="#ffffff"
         android:layout_gravity="center_horizontal"
         android:clickable="false" />
 </LinearLayout>
