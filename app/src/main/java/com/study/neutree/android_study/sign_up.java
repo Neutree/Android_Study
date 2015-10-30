@@ -27,24 +27,26 @@ public class sign_up extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        Button button_ToSignIn=(Button)findViewById(R.id.SignUp_To_SignIn);
         Button button_signUp=(Button)findViewById(R.id.SignUP_Button);
         final EditText userName=(EditText)findViewById(R.id.SignUp_userName);
         final EditText password=(EditText)findViewById(R.id.SignUp_password);
         final EditText password2=(EditText)findViewById(R.id.SignUp_password2);
         Spinner spinner1= (Spinner) findViewById(R.id.SignUp_spinner);
         List<String> list_Proresson = new ArrayList<>();
-        list_Proresson.add(getResources().getString(R.string.Profession_Edu));
+        list_Proresson.add(getResources().getString(R.string.profession_hint));
         list_Proresson.add(getResources().getString(R.string.Profession_IT));
         list_Proresson.add(getResources().getString(R.string.Profession_Art));
         list_Proresson.add(getResources().getString(R.string.Profession_Business));
         list_Proresson.add(getResources().getString(R.string.Profession_Edu));
-        ArrayAdapter<String> adapter =new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,list_Proresson);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+
+        ArrayAdapter<String> adapter =new ArrayAdapter<>(this,R.layout.spinner_white_item,list_Proresson);//set fold style
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);//set unfold style
+
         spinner1.setAdapter(adapter);
         spinner1.setOnItemSelectedListener(new spinnerSelected());
+        spinner1.setSelection(0);
 
-        button_ToSignIn.setOnClickListener(new View.OnClickListener() {
+        button_signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String str_userName = userName.getText().toString().trim();
@@ -55,7 +57,7 @@ public class sign_up extends AppCompatActivity {
                     AlertDialog.Builder builder  = new  AlertDialog.Builder(sign_up.this);
                     builder.setTitle(getResources().getString(R.string.SignUp_Error_Input)) ;
                     builder.setMessage(getResources().getString(R.string.NotComplete)) ;
-                    builder.setPositiveButton(getResources().getString(R.string.YES), null);
+//                    builder.setPositiveButton(getResources().getString(R.string.YES), null);
                     builder.show();
                //     Toast.makeText(getApplicationContext(), getResources().getString(R.string.NotComplete), Toast.LENGTH_SHORT).show();
                 } else if (!str_password.equals(str_password2)) {//两次输入的密码不相同
@@ -73,25 +75,18 @@ public class sign_up extends AppCompatActivity {
         }
         );
 
-        //////////////////////////////
-        ///sign up button onclick callback
-        /////////////////////////////
-        button_ToSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(sign_up.this, sign_In.class);
-                startActivity(intent);
-            }
-        });//添加点击退出按钮事件
-
-
     }
 
     class spinnerSelected implements AdapterView.OnItemSelectedListener{
 
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            if(position==0){//default value
 
+            }
+            else{           //valid item
+
+            }
         }
 
         @Override

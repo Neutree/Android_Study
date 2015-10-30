@@ -9,6 +9,10 @@
     <string name="Hint_password">Input Password</string>
     <string name="Hint_password2">Confirm Password</string>
     <string name="action_settings">Settings</string>
+    <string name="Title">Title</string>
+    <string name="User">User</string>
+    <string name="Love">Love</string>
+    <string name="LastEditDateTime">Last Edit</string>
     <string name="UserName">User Name</string>
     <string name="Password">Password</string>
     <string name="PasswordConfirm">Confirm Password</string>
@@ -20,6 +24,7 @@
     <string name="SignInToSignUp">Sign Up Now</string>
     <string name="Hint_email">Input Email</string>
     <string name="profession">Profession</string>
+    <string name="profession_hint">Select Profession...</string>
     <string name="Profession_Edu">Education</string>
     <string name="Profession_IT">IT</string>
     <string name="Profession_Business">Business</string>
@@ -33,4 +38,10 @@
     <string name="search">SEARCH</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_sign__in">Sign In</string>
+    <string name="title_activity_activity_test">activity_test</string>
+    <string name="title_activity_test">test</string>
+    <string name="title_activity_my_notes_list">MyNotesList</string>
+    <string name="title_activity_load">load</string>
+
+    <string name="colon">:</string>
 </resources>
