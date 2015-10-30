@@ -5,7 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.study.neutree.adapter.NotesListItem;
 import com.study.neutree.model.NoteList;
@@ -34,13 +37,20 @@ public class MyNotesList extends AppCompatActivity {
                 getResources().getString(R.string.Love)+getResources().getString(R.string.colon)+"150",
                 getResources().getString(R.string.LastEditDateTime)+getResources().getString(R.string.colon)+"2015-10-28 10:10"));
 
-        listForum.add(new NoteList(ContextCompat.getDrawable(getApplicationContext(),R.drawable.head_pic),"Android Adapter 的使用总结",
-                getResources().getString(R.string.User)+getResources().getString(R.string.colon)+"Neutree",
-                getResources().getString(R.string.Love)+getResources().getString(R.string.colon)+"885",
-                getResources().getString(R.string.LastEditDateTime)+getResources().getString(R.string.colon)+"2015-10-28 10:10"));
+        listForum.add(new NoteList(ContextCompat.getDrawable(getApplicationContext(), R.drawable.head_pic), "Android Adapter 的使用总结",
+                getResources().getString(R.string.User) + getResources().getString(R.string.colon) + "Neutree",
+                getResources().getString(R.string.Love) + getResources().getString(R.string.colon) + "885",
+                getResources().getString(R.string.LastEditDateTime) + getResources().getString(R.string.colon) + "2015-10-28 10:10"));
 
         NotesListItem adapter=new NotesListItem(this,listForum);
         listView.setAdapter(adapter);
+        //添加点击监听时间
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(),"itemOnItemClick\n",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

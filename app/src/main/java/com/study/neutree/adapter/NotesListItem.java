@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.study.neutree.android_study.R;
 import com.study.neutree.model.NoteList;
@@ -110,6 +111,14 @@ public class NotesListItem extends BaseAdapter{
         user.setText(mNoteList.get(position).getUserName());
         loveNum.setText(mNoteList.get(position).getLoveNum());
         lastEditTime.setText(mNoteList.get(position).getLastEditTime().toString());
+
+        itemPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "点击了头像", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return convertView;
     }
 
