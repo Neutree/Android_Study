@@ -24,7 +24,8 @@
         </activity>
         <activity
             android:name=".MyNotesList"
-            android:label="@string/title_activity_my_notes_list" >
+            android:label="@string/title_activity_my_notes_list"
+            android:theme="@style/Theme.AppCompat.Light" >
         </activity>
         <activity
             android:name=".load"

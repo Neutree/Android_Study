@@ -104,16 +104,16 @@ public class MyNotesList extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case Menu.FIRST:
-                Toast.makeText(getApplicationContext(), "第一个选项选中啦", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), "第一个选项选中啦", Toast.LENGTH_SHORT).show();
                 break;
             case Menu.FIRST + 1:
-                Toast.makeText(getApplicationContext(), "第二个选项选中啦", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), "第二个选项选中啦", Toast.LENGTH_SHORT).show();
                 break;
             case Menu.FIRST + 2:
-                Toast.makeText(getApplicationContext(), "第三个选项选中啦", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), "第三个选项选中啦", Toast.LENGTH_SHORT).show();
                 break;
             case Menu.FIRST + 3:
-                Toast.makeText(getApplicationContext(), "第四个选项选中啦", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), "第四个选项选中啦", Toast.LENGTH_SHORT).show();
                 break;
         }
         return false;
@@ -161,8 +161,19 @@ public class MyNotesList extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id){
+            case R.id.action_settings:
+               // Toast.makeText(this, "点击了设置", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_userProfile:
+                Toast.makeText(this, "点击了个人设置", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_home:
+                Toast.makeText(this, "点击了首页", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_search:
+                Toast.makeText(this, "点击了搜索", Toast.LENGTH_SHORT).show();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
