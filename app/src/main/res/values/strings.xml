@@ -44,4 +44,5 @@
     <string name="title_activity_load">load</string>
 
     <string name="colon">:</string>
+    <string name="title_activity_profile">Profile</string>
 </resources>

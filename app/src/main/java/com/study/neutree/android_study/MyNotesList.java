@@ -3,6 +3,7 @@ package com.study.neutree.android_study;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,12 +16,9 @@ import com.study.neutree.adapter.NotesListItem;
 import com.study.neutree.model.NoteList;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
 
 public class MyNotesList extends AppCompatActivity {
 
@@ -71,15 +69,81 @@ public class MyNotesList extends AppCompatActivity {
                 mapList,R.layout.note_list_item,new String[]{"image","title","user","love","date"},
                 new int[]{R.id.noteListItemImage,R.id.noteListItemUser,R.id.noteListItemLoveNum,
                         R.id.noteListItemLastEditTime});
-        listView.setAdapter(adapter2);//应用 simpleadapter
-       // listView.setAdapter(adapter);//应用自定义的adapter
+       // listView.setAdapter(adapter2);//应用 simpleadapter
+        listView.setAdapter(adapter);//应用自定义的adapter
         //添加点击监听时间
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(),"itemOnItemClick\n",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "itemOnItemClick\n", Toast.LENGTH_SHORT).show();
             }
         });
+        //将快捷菜单注册到控件listView上
+        registerForContextMenu(listView);
+    }
+
+
+    /**
+     * This hook is called whenever an item in a context menu is selected. The
+     * default implementation simply returns false to have the normal processing
+     * happen (calling the item's Runnable or sending a message to its Handler
+     * as appropriate). You can use this method for any items for which you
+     * would like to do processing without those other facilities.
+     * <p/>
+     * Use {@link MenuItem#getMenuInfo()} to get extra information set by the
+     * View that added this menu item.
+     * <p/>
+     * Derived classes should call through to the base class for it to perform
+     * the default menu handling.
+     *
+     * @param item The context menu item that was selected.
+     * @return boolean Return false to allow normal context menu processing to
+     * proceed, true to consume it here.
+     */
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case Menu.FIRST:
+                Toast.makeText(getApplicationContext(), "第一个选项选中啦", Toast.LENGTH_SHORT);
+                break;
+            case Menu.FIRST + 1:
+                Toast.makeText(getApplicationContext(), "第二个选项选中啦", Toast.LENGTH_SHORT);
+                break;
+            case Menu.FIRST + 2:
+                Toast.makeText(getApplicationContext(), "第三个选项选中啦", Toast.LENGTH_SHORT);
+                break;
+            case Menu.FIRST + 3:
+                Toast.makeText(getApplicationContext(), "第四个选项选中啦", Toast.LENGTH_SHORT);
+                break;
+        }
+        return false;
+    }
+
+    /**
+     * Called when a context menu for the {@code view} is about to be shown.
+     * Unlike {@link #onCreateOptionsMenu(Menu)}, this will be called every
+     * time the context menu is about to be shown and should be populated for
+     * the view (or item inside the view for {@link AdapterView} subclasses,
+     * this can be found in the {@code menuInfo})).
+     * <p/>
+     * Use {@link #onContextItemSelected(MenuItem)} to know when an
+     * item has been selected.
+     * <p/>
+     * It is not safe to hold onto the context menu after this method returns.
+     *
+     * @param menu
+     * @param v
+     * @param menuInfo
+     */
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("选择操作");
+        menu.add(0, Menu.FIRST, 0, "喜欢这条");
+        menu.add(0,Menu.FIRST+1,1,"喜欢所有选中的");
+        menu.add(0,Menu.FIRST+2,2,"不喜欢这条");
+        menu.add(0,Menu.FIRST+3,3,"不喜欢选中的");
+
     }
 
     @Override
