@@ -12,7 +12,7 @@ public class load extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load);
-        Intent intent = new Intent(load.this, MyNotesList.class);
+        Intent intent = new Intent(load.this, sign_In.class);
         startActivity(intent);
     }
 

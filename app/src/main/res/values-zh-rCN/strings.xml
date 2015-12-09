@@ -34,6 +34,8 @@
     <string name="Profession_Business">商务</string>
     <string name="Profession_Art">艺术</string>
 
+
+    <string name="rememberPassword">记住密码</string>
     <string name="YES">是</string>
     <string name="NO">否</string>
     <string name="Exit">"退出"</string>

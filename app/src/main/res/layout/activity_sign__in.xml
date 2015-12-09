@@ -27,8 +27,8 @@
 
         <com.study.neutree.components.CircleImageView
             android:id="@+id/signIn_HeadPicture"
-            android:layout_width="144dp"
-            android:layout_height="144dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center"
             android:src="@drawable/head_pic"
             app:civ_border_width="0dp"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:id="@+id/signIn_UserName"
-            android:layout_margin="15dp"
+            android:layout_margin="10dp"
             android:hint="@string/Hint_user"
             style="@style/Input_" />
 
@@ -48,9 +48,19 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:id="@+id/signIn_UserPassword"
-            android:layout_margin="15dp"
+            android:layout_margin="1dp"
             style="@style/Input_"
             android:hint="@string/Hint_password"/>
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:text="@string/rememberPassword"
+            android:id="@+id/signIn_rememberPassword"/>
 
         <Button
             android:layout_width="fill_parent"
@@ -64,7 +74,7 @@
             android:paddingRight="20dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="1dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:textColor="#ffffff"
