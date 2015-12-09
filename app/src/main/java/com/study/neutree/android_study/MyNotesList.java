@@ -1,5 +1,8 @@
 package com.study.neutree.android_study;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,11 +13,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.study.neutree.adapter.NotesListItem;
 import com.study.neutree.model.NoteList;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -102,6 +110,8 @@ public class MyNotesList extends AppCompatActivity {
      */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+
         switch(item.getItemId()) {
             case Menu.FIRST:
                 Toast.makeText(getApplicationContext(), "第一个选项选中啦", Toast.LENGTH_SHORT).show();
@@ -114,6 +124,41 @@ public class MyNotesList extends AppCompatActivity {
                 break;
             case Menu.FIRST + 3:
                 Toast.makeText(getApplicationContext(), "第四个选项选中啦", Toast.LENGTH_SHORT).show();
+                break;
+            case Menu.FIRST + 4:
+                //Toast.makeText(getApplicationContext(), ((TextView)menuInfo.targetView.findViewById(R.id.noteListItemUser)).getText().toString(), Toast.LENGTH_SHORT).show();
+                //save it to system file
+
+                FileOutputStream fos = null;
+                try {
+                    fos = openFileOutput("Articles", Context.MODE_PRIVATE);
+                    NoteList noteList=new NoteList( ((com.study.neutree.components.CircleImageView)menuInfo.targetView.findViewById(R.id.noteListItemImage)).getDrawable(),
+                            ((TextView)menuInfo.targetView.findViewById(R.id.noteListItemTitle)).getText().toString(),
+                            ((TextView)menuInfo.targetView.findViewById(R.id.noteListItemUser)).getText().toString(),
+                            ((TextView)menuInfo.targetView.findViewById(R.id.noteListItemLoveNum)).getText().toString(),
+                            ((TextView)menuInfo.targetView.findViewById(R.id.noteListItemLastEditTime)).getText().toString()
+                            );
+                    fos.write((noteList.getTitle() + noteList.getUserName() + noteList.getLoveNum() + noteList.getLastEditTime()).getBytes());    //String类型变量text：是需要保存的内容
+                }
+                catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+                finally{
+                    if (fos != null){
+                        try {
+                            fos.flush();
+                            fos.close();
+                            Toast.makeText(getApplicationContext(),"Save succesfully",Toast.LENGTH_SHORT).show();
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
                 break;
         }
         return false;
@@ -143,6 +188,7 @@ public class MyNotesList extends AppCompatActivity {
         menu.add(0,Menu.FIRST+1,1,"喜欢所有选中的");
         menu.add(0,Menu.FIRST+2,2,"不喜欢这条");
         menu.add(0,Menu.FIRST+3,3,"不喜欢选中的");
+        menu.add(0,Menu.FIRST+4,4,"保存这条到本地");
 
     }
 
@@ -174,6 +220,45 @@ public class MyNotesList extends AppCompatActivity {
             case R.id.action_search:
                 Toast.makeText(this, "点击了搜索", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.action_look_saved_article:
+                //Toast.makeText(this, "点击了查看已保存的数据", Toast.LENGTH_SHORT).show();
+                //读出数据
+                String text = null;
+                FileInputStream fis = null;
+                try {
+                    fis = openFileInput("Articles");
+                    if (fis.available() == 0){
+                        Toast.makeText(this, "empty", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                    byte[] readBytes = new byte[fis.available()];
+                    while(fis.read(readBytes) != -1);
+                    text = new String(readBytes);
+                }
+                catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+                finally {
+                    if (fis != null) {
+                        try {
+                            fis.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+
+                        }
+                    }
+
+                    //显示数据
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MyNotesList.this);
+                    builder.setTitle(getResources().getString(R.string.saved_article));
+                    builder.setMessage(text);
+//                    builder.setPositiveButton(getResources().getString(R.string.YES), null);
+                    builder.show();
+                    break;
+                }
         }
 
         return super.onOptionsItemSelected(item);

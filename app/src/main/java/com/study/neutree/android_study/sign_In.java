@@ -124,7 +124,7 @@ public class sign_In extends AppCompatActivity {
             }
 
             //Jump to success page
-            Intent intent = new Intent(sign_In.this, signUpSuccess.class);
+            Intent intent = new Intent(sign_In.this, MyNotesList.class);
             Bundle bundle = new Bundle();
             bundle.putCharSequence("userName", userName);
             bundle.putCharSequence("password", userPassword);

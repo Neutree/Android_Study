@@ -11,7 +11,7 @@
             <item
                 android:id="@+id/action_userProfile"
                 android:title="Profile"
-                android:orderInCategory="3"
+                android:orderInCategory="0"
                 app:showAsAction="ifRoom">
 
             </item>
@@ -20,9 +20,15 @@
                 android:id="@+id/action_search"
                 android:title="Search"
                 android:icon="@drawable/search"
-                android:orderInCategory="3"
+                android:orderInCategory="1"
                 app:showAsAction="ifRoom">
             </item>
+            <item
+            android:id="@+id/action_look_saved_article"
+            android:title="SavedArticle"
+            android:orderInCategory="2"
+            app:showAsAction="ifRoom">
+        </item>
         </menu>
 
     </item>

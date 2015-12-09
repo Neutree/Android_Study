@@ -30,6 +30,7 @@
     <string name="Profession_Business">Business</string>
     <string name="Profession_Art">Art</string>
     <string name="rememberPassword">Remember Password</string>
+    <string name="saved_article">saved article</string>
 
     <string name="YES">YES</string>
     <string name="NO">NO</string>
