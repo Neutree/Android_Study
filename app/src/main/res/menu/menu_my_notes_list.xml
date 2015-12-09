@@ -5,7 +5,7 @@
     <item android:id="@+id/action_settings"
         android:title=""
         android:icon="@drawable/light"
-        android:orderInCategory="1"
+        android:orderInCategory="2"
         app:showAsAction="ifRoom" >
         <menu>
             <item
@@ -35,6 +35,13 @@
     <item
         android:id="@+id/action_home"
         android:title="Home"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom">
+
+    </item>
+    <item
+        android:id="@+id/action_NewArticle"
+        android:title="New"
         android:orderInCategory="0"
         app:showAsAction="ifRoom">
 

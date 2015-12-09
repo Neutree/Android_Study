@@ -2,6 +2,7 @@ package com.study.neutree.android_study;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -30,11 +31,16 @@ import java.util.Map;
 
 public class MyNotesList extends AppCompatActivity {
 
-
+    private  String userName=null,userPassword=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_notes_list);
+
+        Bundle bundle = getIntent().getExtras();
+        userName=bundle.getString("userName");
+        userPassword=bundle.getString("password");
+
 
         ListView listView= (ListView) findViewById(R.id.MyNotesListView);
         List<NoteList> listForum = new ArrayList<NoteList>();
@@ -208,6 +214,14 @@ public class MyNotesList extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         switch (id){
+            case R.id.action_NewArticle:
+                Intent intent = new Intent(MyNotesList.this, edit.class);
+                Bundle bundle = new Bundle();
+                bundle.putCharSequence("userName", userName);
+                bundle.putCharSequence("password", userPassword);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                break;
             case R.id.action_settings:
                // Toast.makeText(this, "点击了设置", Toast.LENGTH_SHORT).show();
                 break;
