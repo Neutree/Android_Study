@@ -5,8 +5,8 @@
     <item android:id="@+id/action_settings"
         android:title=""
         android:icon="@drawable/light"
-        android:orderInCategory="2"
-        app:showAsAction="ifRoom" >
+        android:orderInCategory="3"
+        app:showAsAction="always" >
         <menu>
             <item
                 android:id="@+id/action_userProfile"
@@ -28,7 +28,7 @@
             android:title="SavedArticle"
             android:orderInCategory="2"
             app:showAsAction="ifRoom">
-        </item>
+            </item>
         </menu>
 
     </item>
@@ -36,14 +36,14 @@
         android:id="@+id/action_home"
         android:title="Home"
         android:orderInCategory="1"
-        app:showAsAction="ifRoom">
+        app:showAsAction="always">
 
     </item>
     <item
         android:id="@+id/action_NewArticle"
         android:title="New"
         android:orderInCategory="0"
-        app:showAsAction="ifRoom">
+        app:showAsAction="always">
 
     </item>
 </menu>
