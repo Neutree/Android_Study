@@ -1,8 +1,11 @@
 package com.study.neutree.android_study;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +18,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.study.neutree.adapter.DBAdapterImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +69,33 @@ public class sign_up extends AppCompatActivity {
 
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.PasswordDiffrent), Toast.LENGTH_SHORT).show();
                 } else {
+
+                //数据库
+                    DBAdapterImpl dbAdapter=new DBAdapterImpl(getApplicationContext(),"sharenote.db",1,
+                            "create table user (id integer primary key autoincrement,name text,password text);");
+                    dbAdapter.Open();//打开数据库
+                    Cursor result=dbAdapter.Query("user",new String[]{"id","name","password"},("name="+str_userName),null,null,null,null,null);
+                    if(result==null){
+                        Snackbar.make(v, "no database table", Snackbar.LENGTH_SHORT).show();
+                    }
+                    else if(result.getCount()!=0)//找到用户，已经注册过了
+                    {
+                        dbAdapter.Close();
+                        Snackbar.make(v, "user has registered!!", Snackbar.LENGTH_SHORT).show();
+                        return ;
+                    }
+                    ContentValues newUser=new ContentValues();
+                    newUser.put("name",str_userName);
+                    newUser.put("password",str_password);
+                    if(!dbAdapter.Insert("user",null,newUser))//插入失败
+                    {
+                        dbAdapter.Close();
+                        Snackbar.make(v, "registered failed!!", Snackbar.LENGTH_SHORT).show();
+                        return;
+                    }
+                    Snackbar.make(v, "Sign UP success!!", Snackbar.LENGTH_SHORT).show();
+                    dbAdapter.Close();
+                //注册成功
                     Intent intent = new Intent(sign_up.this, signUpSuccess.class);
                     Bundle bundle = new Bundle();
                     bundle.putCharSequence("userName", str_userName);
@@ -71,6 +103,7 @@ public class sign_up extends AppCompatActivity {
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
+
             }
         }
         );

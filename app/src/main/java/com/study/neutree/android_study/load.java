@@ -17,10 +17,10 @@ public class load extends AppCompatActivity {
         Intent intent = new Intent(load.this, sign_In.class);
         startActivity(intent);
         //这里没有将数据库表进行对象化，直接使用语句，这样是不好的
-        DBAdapterImpl dbAdapter=new DBAdapterImpl(getApplicationContext(),"sharenote.db",1,
-                "create table user (id integer primary key autoincrement,password text);");
-        dbAdapter.Open();//打开数据库
-        dbAdapter.Close();
+//        DBAdapterImpl dbAdapter=new DBAdapterImpl(getApplicationContext(),"sharenote.db",1,
+//                "create table user (id integer primary key autoincrement,name text,password text);");
+//        dbAdapter.Open();//打开数据库
+//        dbAdapter.Close();
     }
 
     @Override

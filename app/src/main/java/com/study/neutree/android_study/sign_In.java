@@ -1,7 +1,11 @@
 package com.study.neutree.android_study;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteException;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +16,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.study.neutree.adapter.DBAdapterImpl;
+import com.study.neutree.model.User;
 
 public class sign_In extends AppCompatActivity {
     /****************************登录数据储存*****************************/
@@ -46,6 +53,11 @@ public class sign_In extends AppCompatActivity {
         SginInToSignUp.setOnClickListener(new ToSignIn());
         buttonSignIn.setOnClickListener(new Signin());
 
+    //数据库相关操作
+        DBAdapterImpl dbAdapter=new DBAdapterImpl(getApplicationContext(),"sharenote.db",1,
+                "create table user (id integer primary key autoincrement,name text,password text);");
+        dbAdapter.Open();//打开数据库
+        dbAdapter.Close();
     }
 
     class ToForgetPasswordPage implements View.OnClickListener{
@@ -109,7 +121,37 @@ public class sign_In extends AppCompatActivity {
 
             //在这里验证登录正确性
 
+            //数据库
+            DBAdapterImpl dbAdapter=new DBAdapterImpl(getApplicationContext(),"sharenote.db",1,
+                    "create table user (id integer primary key autoincrement,name text,password text);");
+            dbAdapter.Open();//打开数据库
+            Cursor result=dbAdapter.Query("user",new String[]{"id","name","password"},("name="+userName),null,null,null,null,null);
+            if(result==null){
+                Snackbar.make(v, "no database table", Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+            else if(result.getCount()==0)//未找到用户，未注册过
+            {
+                dbAdapter.Close();
+                Snackbar.make(v, "no this user!", Snackbar.LENGTH_SHORT).show();
+                return ;
+            }
+            dbAdapter.Close();//关闭数据库的引用
 
+            User user= null;
+            if(result.moveToNext()) {
+                user = new User(result.getString(result.getColumnIndex("name")), result.getString(result.getColumnIndex("password")));
+                if (user.getmName().equals(userName) && user.getmPassword().equals(userPassword)) {//验证成功
+                    Snackbar.make(v, "Sign In success!!", Snackbar.LENGTH_SHORT).show();
+                } else {//验证失败
+                    Snackbar.make(v, "Password wrong!!", Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+            else{
+                Snackbar.make(v, "no this user!", Snackbar.LENGTH_SHORT).show();
+                return ;
+            }
             //如果选择了记住密码，则执行记住密码操作
             if(rememberPassword.isChecked())
             {
@@ -119,7 +161,7 @@ public class sign_In extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("Name", userName);
                 editor.putString("Password",userPassword);
-                editor.commit();
+                editor.apply();
 
             }
 
