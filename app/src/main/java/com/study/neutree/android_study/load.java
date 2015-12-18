@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.study.neutree.adapter.DBAdapterImpl;
+
 public class load extends AppCompatActivity {
 
     @Override
@@ -14,6 +16,11 @@ public class load extends AppCompatActivity {
         setContentView(R.layout.activity_load);
         Intent intent = new Intent(load.this, sign_In.class);
         startActivity(intent);
+        //这里没有将数据库表进行对象化，直接使用语句，这样是不好的
+        DBAdapterImpl dbAdapter=new DBAdapterImpl(getApplicationContext(),"sharenote.db",1,
+                "create table user (id integer primary key autoincrement,password text);");
+        dbAdapter.Open();//打开数据库
+        dbAdapter.Close();
     }
 
     @Override
