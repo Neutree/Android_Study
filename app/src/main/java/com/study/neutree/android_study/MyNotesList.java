@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,8 +13,10 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,9 +33,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MyNotesList extends AppCompatActivity {
+public class MyNotesList extends AppCompatActivity implements  AbsListView.OnScrollListener {
 
     private  String userName=null,userPassword=null;
+    private List<NoteList> listForum;
+    NotesListItem adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +49,7 @@ public class MyNotesList extends AppCompatActivity {
 
 
         ListView listView= (ListView) findViewById(R.id.MyNotesListView);
-        List<NoteList> listForum = new ArrayList<NoteList>();
+        listForum = new ArrayList<NoteList>();
         listForum.add(new NoteList(ContextCompat.getDrawable(getApplicationContext(), R.drawable.head_pic), "Android Listview 的使用总结",
                 getResources().getString(R.string.User) + getResources().getString(R.string.colon) + "Neutree",
                 getResources().getString(R.string.Love) + getResources().getString(R.string.colon) + "120",
@@ -58,7 +64,7 @@ public class MyNotesList extends AppCompatActivity {
                 getResources().getString(R.string.Love) + getResources().getString(R.string.colon) + "885",
                 getResources().getString(R.string.LastEditDateTime) + getResources().getString(R.string.colon) + "2015-10-28 10:10"));
 
-        NotesListItem adapter=new NotesListItem(this,listForum);
+        adapter=new NotesListItem(this,listForum);
 
         //simpleadapter的使用
         List<Map<String,Object>> mapList = new ArrayList<Map<String,Object>>();
@@ -85,13 +91,14 @@ public class MyNotesList extends AppCompatActivity {
                         R.id.noteListItemLastEditTime});
        // listView.setAdapter(adapter2);//应用 simpleadapter
         listView.setAdapter(adapter);//应用自定义的adapter
-        //添加点击监听时间
+        //添加点击监听时间,也可以mynotelist类实现 OntemClickListener,OnScrollListrner
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(), "itemOnItemClick\n", Toast.LENGTH_SHORT).show();
             }
         });
+        listView.setOnScrollListener(this);
         //将快捷菜单注册到控件listView上
         registerForContextMenu(listView);
     }
@@ -276,5 +283,54 @@ public class MyNotesList extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    /**
+     * Callback method to be invoked while the list view or grid view is being scrolled. If the
+     * view is being scrolled, this method will be called before the next frame of the scroll is
+     * rendered. In particular, it will be called before any calls to
+     * {@link Adapter#getView(int, View, ViewGroup)}.
+     *
+     * @param view        The view whose scroll state is being reported
+     * @param scrollState The current scroll state. One of
+     *                    {@link #SCROLL_STATE_TOUCH_SCROLL} or {@link #SCROLL_STATE_IDLE}.
+     */
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        switch (scrollState)
+        {
+            case SCROLL_STATE_FLING://正在滑动
+                Snackbar.make(view, "手指正在滑动", Snackbar.LENGTH_SHORT).show();
+                NoteList newOne=new NoteList(ContextCompat.getDrawable(getApplicationContext(), R.drawable.head_pic), "Android Listview 的使用总结",
+                        getResources().getString(R.string.User) + getResources().getString(R.string.colon) + "Neutree",
+                        getResources().getString(R.string.Love) + getResources().getString(R.string.colon) + "120",
+                        getResources().getString(R.string.LastEditDateTime) + getResources().getString(R.string.colon) + "2015-10-28 10:10");
+                listForum.add(newOne);
+                adapter.notifyDataSetChanged();
+                break;
+            case SCROLL_STATE_IDLE://手指离开，还在滑动
+                Snackbar.make(view, "手指离开，正在滑动", Snackbar.LENGTH_SHORT).show();
+                break;
+            case SCROLL_STATE_TOUCH_SCROLL://停止滑动
+                Snackbar.make(view, "滑动停止", Snackbar.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    /**
+     * Callback method to be invoked when the list or grid has been scrolled. This will be
+     * called after the scroll has completed
+     *
+     * @param view             The view whose scroll state is being reported
+     * @param firstVisibleItem the index of the first visible cell (ignore if
+     *                         visibleItemCount == 0)
+     * @param visibleItemCount the number of visible cells
+     * @param totalItemCount   the number of items in the list adaptor
+     */
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
     }
 }
